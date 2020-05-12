@@ -1,0 +1,141 @@
+﻿@model LearningEntityFramework.ViewModels.CustomerViewModel
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h2 style="padding-top: 0.5em;">Customers</h2>
+
+
+<div>
+    <div class="alert alert-success" role="alert" style="display: none" id="successMessage">The user has been created</div>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+ 
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" id="showCreateCustomer">Add Customer</button>
+</div>
+
+<div class="modal fade" tabindex="-1" id="customerModal" role="dialog">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Customer</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <lable class="col-md-2">First Name:</lable>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="customerFirstName" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <lable class="col-md-2">Last Name:</lable>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="customerLastName" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" id="saveButton" class="btn btn-primary" name="saveButton" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class=""></div>
+
+<script>
+    var id = 0;
+
+    $('#showCreateCustomer').click(function () {
+        $('#customerFirstName').val("");
+        $('#customerLastName').val("");
+        $('#customerModal').modal();
+        id = 0;
+    })
+
+    $(document).on('click', '#editButton', function () {
+        id = $(this).data('value');
+        console.log(id);
+        $.ajax({
+            url: "/Home/GetCustomer/" + id,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $('#customerFirstName').val(data.FirstName);
+                $('#customerLastName').val(data.LastName);
+                $('#customerModal').modal();
+
+            }
+        })
+    })
+    
+
+
+    $('#saveButton').click(function () {
+        var firstName = $('#customerFirstName').val();
+        var lastName = $('#customerLastName').val();
+        //Data validation
+        if (firstName === "") {
+            $('#customerFirstName').after('<div class="alert alert-danger">First name can\'t be empty</div>')
+            return;
+        } else if (lastName === "") {
+            $('#customerLastName').after('<div class="alert alert-danger">Last name can\'t be empty</div>')
+        }
+
+        var customer = { Id: id, FirstName: firstName, LastName: lastName};
+        var json = JSON.stringify(customer);
+        console.log(json);
+        $.ajax({
+            url: "/Home/Customers/",
+            type: "POST",
+            data: customer,
+            dataType: "json",
+            success: function () {
+                loadData();
+                $('#customerModal').modal("hide");
+                $('#successMessage').show();
+            }
+        })
+
+    })
+
+    function loadData() {
+        $.ajax({
+            url: "/Home/GetData",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#tableBody').empty();
+                for (var i = 0; i < data.length; i++) {
+                    var line = "<tr>";
+                    line += "<td>" + data[i].FirstName + "</td>";
+                    line += "<td>" + data[i].LastName + "</td>";
+                    line += "<td><button type='button' class='btn btn-primary edit-button' id='editButton' data-value='" + data[i].Id + "'>Edit</button></td>";
+                    line += "<td></td></tr>";
+                    $('#tableBody').append(line);
+                }
+              
+                    
+            }
+        })
+    }
+
+    loadData();
+</script>

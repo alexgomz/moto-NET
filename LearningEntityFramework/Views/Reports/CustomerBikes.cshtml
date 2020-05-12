@@ -1,0 +1,41 @@
+﻿@model List<Repository.DTOs.CustomerAndBikesDTO> 
+
+@{
+    ViewBag.Title = "CustomerBikes";
+}
+
+<h2>Customer Bikes</h2>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Motorcycles</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].FirstName</td>
+                    <td>@Model[i].LastName</td>
+                    <td>@Model[i].Name</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class=" btn btn-primary" id="buttonId">Button</button>
+</div>
+
+<script>
+    console.log("Hello World from JavaScript.");
+   
+
+    $('#buttonId').click(function () { console.log("JQUERY CLICK"); $('#buttonId').html("Button Clicked"); });
+
+</script>

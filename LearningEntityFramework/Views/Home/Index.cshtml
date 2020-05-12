@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1 class="display-4 text-center">Motorcycle Store Database Website</h1>
+    <h4 class="text-muted text-center">Guille showing me the ways of the Full Stack</h4>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">
+        <a href="@Url.Action("Motorcycles","Home")" title="Motorcycles">
+            <img class="rounded-circle" width="140" height="140" src="~/Images/motorcycleIcon.svg" />
+        </a>
+        <h2>Motorcycles</h2>
+        <p>Access the entire motorcycle inventory.</p>
+    </div>
+    <div class="col-lg-3">
+        <a href="@Url.Action("Customers","Home")" title="Customers">
+            <img class="rounded-circle" width="140" height="140" src="~/Images/customerIcon.svg" />
+        </a>
+        <h2>Customers</h2>
+        <p>View our entire customer roster.</p>
+</div>
+    <div class="col-lg-3">
+        <a href="@Url.Action("Purchases","Home")" title="Purchases">
+            <img class="rounded-circle" width="140" height="140" src="~/Images/purchaseIcon.svg" />
+        </a>
+        <h2>Purchases</h2>
+        <p>View all purchases.</p>
+    </div>
+    <div class="col-lg-3">
+        <a href="@Url.Action("Index","Reports")" title="Reports">
+            <img class="rounded-circle" width="140" height="140" src="~/Images/reportsIcon.svg" />
+        </a>
+        <h2>Reports</h2>
+        <p>Make use of our reporting tools.</p>
+    </div>
+
+</div>
+

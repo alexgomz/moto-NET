@@ -1,0 +1,65 @@
+﻿@model LearningEntityFramework.ViewModels.MotorcycleViewModel
+
+@{
+    ViewBag.Title = "Motorcycles";
+}
+
+<h2 style="padding-top: 0.5em;">Motorcycles</h2>
+
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Price</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.AllMotorcycles.Count; i++)
+            {
+            <tr>
+                <td>@Model.AllMotorcycles[i].Id</td>
+                <td>@Model.AllMotorcycles[i].Name</td>
+                <td>@Model.AllMotorcycles[i].Year</td>
+                <td>@Model.AllMotorcycles[i].Price</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMotorcycle" data-value="@Model.AllMotorcycles[i].Id">Edit</button></td>
+                <td>@Html.ActionLink("Delete", "DeleteMotorcycle", new { motoId = Model.AllMotorcycles[i].Id })</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createMotorcycle">Add Motorcycle</button>
+</div>
+
+<div class="modal fade" tabindex="-1" id="createMotorcycle" role="dialog">
+    <div id="showCreateModal">
+
+    </div>
+ 
+</div>
+
+<div class="modal fade" tabindex="-1" id="editMotorcycle" role="dialog">
+    <div id="showEditModal">
+
+    </div>
+
+</div>
+
+<script>
+    $('#createMotorcycle').on('show.bs.modal', function (event) {
+        $('#showCreateModal').load('NewMotorcycleForm');
+    })
+
+    $('#editMotorcycle').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('value');
+        console.log(id);
+        $('#showEditModal').load('/Home/EditMotorcycleForm/' + id);
+
+    })
+</script>

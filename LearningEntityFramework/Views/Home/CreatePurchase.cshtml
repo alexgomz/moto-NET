@@ -1,0 +1,35 @@
+﻿@model LearningEntityFramework.ViewModels.PurchaseViewModel
+
+@{
+    ViewBag.Title = "CreatePurchase";
+
+}
+
+<h2>Create Purchase</h2>
+
+@using (Html.BeginForm("CreatePurchase", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Motorcycle</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Select Customer Name: </label>
+            @Html.DropDownListFor(model => model.Purchase.customerId, Model.AvailCustomers.Select(option => new SelectListItem { Text=option.FirstName + " " + option.LastName, Value=option.Id.ToString(), Selected=false}) )
+        </div>
+
+        <div class="form-group">
+            <label>Select Motorcycle Model: </label>
+            @Html.DropDownListFor(model => model.Purchase.motorcycleId, new SelectList(Model.AvailMotorcycles, "Id", "Name"))
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Create Purchase" class="btn btn-default" />
+        </div>
+
+    </div>
+}
+

@@ -1,0 +1,22 @@
+﻿@model Repository.DTOs.TopCustomerDTO
+
+@{
+    ViewBag.Title = "TopClient";
+}
+
+
+
+<div class="card" style="width: 18rem; padding: 5px" >
+    <div class="card-body">
+        <h5 class="card-title">Top Customer</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Full Name</h6>
+        <p class="card-text">@Model.Name</p>
+        <h6 class="card-subtitle mb-2 text-muted">Total Purchases</h6>
+        <p class="card-text">@Model.Sales</p>
+        <h6 class="card-subtitle mb-2 text-muted">Purchases Value</h6>
+        <p class="card-text">$@Model.SalesValue</p>
+        @Html.ActionLink("Back to Reports", "Index", new { area = "" }, new { @class = "card-link" })
+    </div>
+
+
+</div>

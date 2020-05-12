@@ -1,0 +1,50 @@
+﻿@model LearningEntityFramework.ViewModels.MotorcycleViewModel
+
+@{
+    ViewBag.Title = "NewMotorcycleForm";
+}
+
+
+<div class="modal-dialog" role="form">
+    @Html.BeginForm("Motorcycles", "Home", FormMethod.Post)
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title">Add New Motorcycle</h5>
+        </div>
+        <div class="modal-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.NewMotorcycle.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.NewMotorcycle.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.NewMotorcycle.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.NewMotorcycle.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.NewMotorcycle.Year, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.NewMotorcycle.Year, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.NewMotorcycle.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.NewMotorcycle.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.NewMotorcycle.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

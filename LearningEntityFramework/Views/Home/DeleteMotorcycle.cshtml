@@ -1,0 +1,48 @@
+﻿@model Repository.Models.Motorcycle
+
+@{
+    ViewBag.Title = "Delete Motorcycle";
+}
+
+<h2>Delete Motorcycle</h2>
+
+@using (Html.BeginForm("DeleteMotorcycle", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m=>m.Id)
+<div class="form-horizontal">
+    <h4>Are you sure you want to delete this motorcycle?</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label>Motorcycle: </label> @Html.DisplayFor(m=>m.Name)
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label>Year: </label>@Html.DisplayFor(m => m.Year)
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label>Price: </label>@Html.DisplayFor(m => m.Price)
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+    <p>Are you sure you want to delete this motorcycle?</p>
+
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
